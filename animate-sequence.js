@@ -14,15 +14,18 @@ export function updateSequenceAnimation(arr, cumulative, loopStart, callback) {
 		}
 	} else {
 		nextArr = arr.map((itm, idx) => {
-			if (itm == false && ((!arr[idx -1] && arr[arr.length - 1] == true) || arr[idx - 1] == true)) {
+			
+			if (itm == false && arr[idx -1] && arr[idx - 1] == true) {
 				return true;
-			} else if (idx == 0 && arr.find((val) => val == true) == null) {
+			} else if (idx == 0 && loopStart == 0 && arr.find((val) => val == true) == null) {
+				return true;
+			} else if (idx == 0 && loopStart == 1 && arr[arr.length - 1] == true) {
 				return true;
 			} else {
 				return false;
 			}
 		});
 	}
-
+	
 	callback(nextArr);
 }

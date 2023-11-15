@@ -1,15 +1,22 @@
-export function updateSequenceAnimation(arr, stateCallback, cumulative, loopStart) {
+export function updateSequenceAnimation(arr, cumulative, loopStart, stateCallback) {
+	
 
 	if (cumulative) {
 		for (let i = loopStart; i < arr.length; i++) {
+			console.log(i, arr);
 			if (arr[i] == false) {
 				arr[i] = true;
+				console.log("break")
 				break;
 			} else if (i == arr.length - 1) {
-				arr = [...Array(arr.length)].map(() => false);
+				// *** map/merge function wont update reference
+				for (let j = 0; j < arr.length; j++) {
+					arr[j] = false;
+				}
+				console.log("redo:", arr)
+				
 			}
 		}
-
 	} else {
 		arr = arr.map((itm, idx) => {
 			if (itm == false && ((!arr[idx -1] && arr[arr.length - 1] == true) || arr[idx - 1] == true)) {
